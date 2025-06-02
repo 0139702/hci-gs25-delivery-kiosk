@@ -68,7 +68,7 @@ function renderHangulKeyboard() {
     </div>
     <div class="keyboard-row three-row">
         ${row2.map(k => keyBtnWithSub(k)).join("")}
-        <button class="key key-special dong" onclick="pressKey('동')">동</button>
+        ${specialKey("동")}
     </div>
     <div class="keyboard-row four-row">
         <button class="key key-func shift" onclick="toggleShift()">
@@ -79,7 +79,7 @@ function renderHangulKeyboard() {
         <button class="key key-func back" onclick="backspace()">
             <img class="back-icon" src="/assets/images/button_backSpace.png">
         </button>
-        <button class="key key-special ho" onclick="pressKey('호')">호</button>
+        ${specialKey("호")}
     </div>
     <div class="keyboard-row bottom-row">
         <button class="key key-func lang" onclick="toggleLanguage()">한/영</button>
@@ -179,17 +179,33 @@ function pressNumber(num) {
     activeInput.value = inputBuffer.join("");
 }
 
-function specialKey(label) {
+function specialKey(originalLabel) {
+    let displayLabel = originalLabel;
+    let inputValue = originalLabel;
     let extraClass = "";
-    if (label === "동") extraClass = "dong";
-    else if (label === "호") extraClass = "ho";
-  
-    return `<button class="key key-special ${extraClass}" onclick="insertSpecial('${label}')">${label}</button>`;
+
+    const isSearchPage = window.location.pathname.includes("search.html");
+
+    if (originalLabel === "동") {
+        if (isSearchPage) {
+            displayLabel = "길";
+            inputValue = "길";
+        }
+        extraClass = "dong";
+    } else if (originalLabel === "호") {
+        if (isSearchPage) {
+            displayLabel = "로";
+            inputValue = "로";
+        }
+        extraClass = "ho";
+    }
+
+    return `<button class="key key-special ${extraClass}" onclick="pressKey('${inputValue}')">${displayLabel}</button>`;
 }
 
 function pressKey(char) {
     if (!activeInput || activeInput.tagName !== 'INPUT') return;
-  
+
     inputBuffer.push(char);
     const value = isHangul ? Hangul.assemble(inputBuffer) : inputBuffer.join("");
     activeInput.value = value;
