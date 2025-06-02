@@ -51,5 +51,5 @@ function goToSearchPage(targetFieldId) {
       }
     });
   
-    window.location.href = "/pages/search.html";
+    window.location.href = "/hci-gs25-delivery-kiosk/search.html";
 }
