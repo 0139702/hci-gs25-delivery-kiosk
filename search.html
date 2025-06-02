@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/stylesheets/style.css">
     <script src="https://unpkg.com/hangul-js"></script>    
 </head>
-<body>
+<body onclick="updateActionButtonForSearch()">
     <div class="viewport">
         <img class="bar" src="/assets/images/상단bar.png" alt="">
         <h1 class="search">보내는 주소 등록</h1>
@@ -17,8 +17,18 @@
                 <img class="home-icon" src="/assets/images/icons_home.png" alt="">
                 <span class="home-text">초기 화면</span>
             </div>
-            <img class="question-icon" src="/assets/images/icons_question.png" alt="">
+            <img class="question-icon" src="/assets/images/icons_question.png" onclick="openHelp()" alt="">
         </div>
+
+        <!-- 도움말 팝업 -->
+        <div id="helpPopup" class="popup-overlay" style="display: none;">
+            <div class="popup-content">
+              <img src="/assets/images/support_bg.png" alt="도움말" class="help-image">
+              <button class="popup-close" onclick="closeHelp()">
+                <img src="/assets/images/button_close.png" alt="">
+              </button>
+            </div>
+          </div>
 
         <div class="search-container">
             <div class="search-field">
@@ -32,6 +42,8 @@
             </div>
             <p>검색어 예 : 도로명 주소 (동일로 30길 50), 지번 주소(돈암동 1234), 건물명(성신여자대학교</p>
             <p>초성 검색 : 돈암동 → ㄷㅇㄷ 30길</p>
+
+            <div id="selectedAddress" style="display: none;"></div>
 
             <div class="show-result">
                 <img class="result-not" src="/assets/images/icons_dashNotSelect.png" alt="">
@@ -58,14 +70,18 @@
         </div>
 
         <div class="bottom-bar">
-            <button class="prev-btn btn" onclick="backToPrev()">
-                 <img class="prev-btn btn" src="/assets/images/prevBtn.png" alt="">
+            <button class="prev-btn btn common-prev" onclick="backToPrev()">
+                <img class="prev-icon" src="/assets/images/button_previous.png" alt="">
+                <span>이전으로</span>
             </button>
+            
+          
             <img class="logo" src="/assets/images/logo_GS25.png" alt="">
-            <button class="next-btn btn" onclick="confirmSelection()">
-                <img class="next-btn btn" src="/assets/images/noSelect.png" alt="">
-            </button> 
-        </div>
+          
+            <button id="actionButton" class="next-btn btn" onclick="confirmSelection()" disabled>
+              <span id="actionLabel">입력 완료</span>
+            </button>
+          </div>
         
         <div id="keyboardContainer" class="keyboard-container"></div>
     </div>
@@ -73,5 +89,6 @@
     <script src="https://code.jquery.com/jquery-1.8.3.min.js"></script>
     <script src="/scripts/keyboard.js"></script>
     <script src="/scripts/searchAddress.js"></script>
+    <script src="/scripts/etcFtn.js"></script>
 </body>
 </html>

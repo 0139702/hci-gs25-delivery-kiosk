@@ -106,8 +106,13 @@ function showPage(pageNum) {
     box.addEventListener("click", () => {
       document.querySelectorAll(".address-item").forEach(el => el.classList.remove("selected"));
       box.classList.add("selected");
-
+    
       chosenAddress = item.roadAddr;
+    
+      const selectedEl = document.querySelector("#selectedAddress");
+      if (selectedEl) selectedEl.textContent = chosenAddress;
+    
+      updateConfirmButtonState(); // 버튼 활성화 갱신
     });
 
     resultsDiv.appendChild(box);

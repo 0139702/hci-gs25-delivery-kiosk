@@ -50,7 +50,7 @@ function renderKeyboard() {
 
 // 한글 키보드 렌더링
 function renderHangulKeyboard() {
-    console.log("한글 키패드 렌더링!");
+    console.log("한글 키패드 렌더링");
     const keyboard = document.getElementById("keyboardContainer");
 
     const topNumbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "-"];
@@ -89,7 +89,7 @@ function renderHangulKeyboard() {
 }
 
 function renderNumberPad() {
-    console.log("숫자 키패드 렌더링!");
+    console.log("숫자 키패드 렌더링");
     const keyboard = document.getElementById("keyboardContainer");
     keyboard.innerHTML = `
     <div class="keyboard-row numPad first-num">
@@ -115,10 +115,14 @@ function initInputFocusEvents() {
     const inputs = document.querySelectorAll("input[type='text']");
     inputs.forEach(input => {
         input.addEventListener("click", () => setActiveInput(input));
-    });
+        input.addEventListener("input", () => {
+          updateConfirmButtonState();  // ✅ 입력 변화 시 버튼 상태 갱신
+        });
+      });
 }
 
 function renderEnglishKeyboard() {
+  console.log("영어 키패드 렌더링");
   const keyboard = document.getElementById("keyboardContainer");
 
   const row1 = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"];
@@ -165,10 +169,6 @@ function keyBtnWithSub(char) {
   `;
 }
 
-// window.addEventListener('DOMContentLoaded', () => {
-//     initInputFocusEvents();
-// });
-
 function numberBtn(num) {
     return `<button class="numBtn" onclick="pressNumber('${num}')">${num}</button>`;
 }
@@ -177,6 +177,8 @@ function pressNumber(num) {
     if (!activeInput) return;
     inputBuffer.push(num);
     activeInput.value = inputBuffer.join("");
+
+    activeInput.dispatchEvent(new Event("input"));
 }
 
 function specialKey(originalLabel) {
@@ -215,6 +217,8 @@ function pressKey(char) {
     } else {
       activeInput.classList.remove("input-filled");
     }
+
+    activeInput.dispatchEvent(new Event("input"));
 }
 
 function insertSpecial(word) {
