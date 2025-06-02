@@ -13,16 +13,28 @@ window.onload = () => {
 };
 
 function setActiveInput(element) {
-  activeInput = element;
-  inputBuffer = Hangul.disassemble(element.value || '');
-  renderKeyboard();
-
-  if (element.classList.contains("numeric")) {
-    renderNumberPad();
-  } else {
-    renderKeyboard();
+    if (activeInput && activeInput !== element) {
+      activeInput.classList.remove('input-focus');
+      // 입력값이 있을 경우 input-filled 유지
+      if (activeInput.value.trim() !== '') {
+        activeInput.classList.add('input-filled');
+      } else {
+        activeInput.classList.remove('input-filled');
+      }
+    }
+  
+    activeInput = element;
+    inputBuffer = Hangul.disassemble(element.value || '');
+  
+    element.classList.add('input-focus');
+    element.classList.remove('input-filled'); // 입력 중엔 filled 제거
+  
+    if (element.classList.contains("numeric")) {
+      renderNumberPad();
+    } else {
+      renderKeyboard();
+    }
   }
-}
 
 function renderKeyboard() {
   if (isHangul) {
@@ -32,7 +44,7 @@ function renderKeyboard() {
   }
 }
 
-// ✅ 한글 키보드 렌더링
+// 한글 키보드 렌더링
 function renderHangulKeyboard() {
   const keyboard = document.getElementById("keyboardContainer");
 
@@ -49,18 +61,23 @@ function renderHangulKeyboard() {
       ${row1.map(k => keyBtnWithSub(k)).join("")}
       ${specialKey("아파트")}
     </div>
-    <div class="keyboard-row">
+    <div class="keyboard-row three-row">
       ${row2.map(k => keyBtnWithSub(k)).join("")}
-      ${specialKey("동")}
+      <button class="key key-special dong">동</button>
     </div>
-    <div class="keyboard-row">
-      <button class="key key-func" onclick="toggleShift()">Shift</button>
+    <div class="keyboard-row four-row">
+      <button class="key key-func shift" onclick="toggleShift()">
+        <img class="shift-icon" src="/assets/images/buttons_shift.png">
+        Shift
+      </button>
       ${row3.map(k => keyBtnWithSub(k)).join("")}
-      <button class="key key-func" onclick="backspace()">←</button>
-      ${specialKey("호")}
+      <button class="key key-func back" onclick="backspace()">
+        <img class="back-icon" src="/assets/images/button_backSpace.png">
+      </button>
+      <button class="key key-special ho">호</button>
     </div>
     <div class="keyboard-row bottom-row">
-      <button class="key key-func" onclick="toggleLanguage()">한/영</button>
+      <button class="key key-func lang" onclick="toggleLanguage()">한/영</button>
       <button class="key key-space" onclick="insertSpace()">띄움</button>
     </div>
   `;
@@ -111,25 +128,31 @@ function keyBtnWithSub(char) {
 function renderNumberPad() {
     const keyboard = document.getElementById("keyboardContainer");
     keyboard.innerHTML = `
-      <div class="keyboard-row">
+      <div class="keyboard-row numPad first-num">
         ${[1, 2, 3].map(k => numberBtn(k)).join("")}
       </div>
-      <div class="keyboard-row">
+      <div class="keyboard-row numPad second-num">
         ${[4, 5, 6].map(k => numberBtn(k)).join("")}
       </div>
-      <div class="keyboard-row">
+      <div class="keyboard-row numPad third-num">
         ${[7, 8, 9].map(k => numberBtn(k)).join("")}
       </div>
       <div class="keyboard-row">
-        <button onclick="pressNumber('010')">010</button>
+        <button class="key key-func zeros" onclick="pressNumber('010')">010</button>
         ${numberBtn(0)}
-        <button onclick="backspace()">←</button>
+        <button class="key key-func backback" onclick="backspace()">
+            <img class="back-icon" src="/assets/images/button_backSpace.png">
+        </button>
       </div>
     `;
 }
 
+window.addEventListener('DOMContentLoaded', () => {
+    initInputFocusEvents();
+});
+
 function numberBtn(num) {
-    return `<button onclick="pressNumber('${num}')">${num}</button>`;
+    return `<button class="numBtn" onclick="pressNumber('${num}')">${num}</button>`;
 }
   
 function pressNumber(num) {
@@ -139,14 +162,25 @@ function pressNumber(num) {
 }
 
 function specialKey(label) {
-  return `<button class="key key-special" onclick="insertSpecial('${label}')">${label}</button>`;
+    let extraClass = "";
+    if (label === "동") extraClass = "dong";
+    else if (label === "호") extraClass = "ho";
+  
+    return `<button class="key key-special ${extraClass}" onclick="insertSpecial('${label}')">${label}</button>`;
 }
 
 function pressKey(char) {
-  if (!activeInput) return;
-  inputBuffer.push(char);
-  const value = isHangul ? Hangul.assemble(inputBuffer) : inputBuffer.join("");
-  activeInput.value = value;
+    if (!activeInput || activeInput.tagName !== 'INPUT') return;
+  
+    inputBuffer.push(char);
+    const value = isHangul ? Hangul.assemble(inputBuffer) : inputBuffer.join("");
+    activeInput.value = value;
+  
+    if (value.trim()) {
+      activeInput.classList.add("input-filled");
+    } else {
+      activeInput.classList.remove("input-filled");
+    }
 }
 
 function insertSpecial(word) {

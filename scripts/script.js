@@ -1,110 +1,3 @@
-// let activeInput = null;
-// let inputBuffer = [];
-
-// window.onload = () => {
-//   renderHangulKeyboard();
-// };
-
-// function setActiveInput(element) {
-//   activeInput = element;
-  // 선택한 input값을 기준으로 다시 버퍼 구성
-//   const currentText = element.value;
-//   inputBuffer = Hangul.disassemble(element.value);
-
-//   if (element.classList.contains("numeric")) {
-//     renderNumberPad();
-//   } else {
-//     renderHangulKeyboard();
-//   }
-// }
-
-// 키보드 렌더링
-// function renderHangulKeyboard() {
-//   const keyboard = document.getElementById("keyboardContainer");
-//   keyboard.innerHTML = `
-//     <div class="keyboard-row top-row">
-//       ${["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "-"].map(n => keyBtn(n, "key-number")).join("")}
-//     </div>
-//     <div class="keyboard-row">
-//       ${["ㅂ", "ㅈ", "ㄷ", "ㄱ", "ㅅ", "ㅛ", "ㅕ", "ㅑ", "ㅐ", "ㅔ","ㅖ"].map(k => keyBtn(k)).join("")}
-//     //   <button onclick="insertSpace()">아파트</button>
-//       ${["아파트"].map(t => specialKey(t, "key-special"))}
-//     </div>
-//     <div class="keyboard-row">
-//       ${["ㅁ", "ㄴ", "ㅇ", "ㄹ", "ㅎ", "ㅗ", "ㅓ", "ㅏ", "ㅣ"].map(k => keyBtn(k)).join("")}
-//     //   <button onclick="insertSpace()">동</button>
-//     ${["동"].map(t => specialKey(t, "key-special"))}
-//     </div>
-//     <div class="keyboard-row">
-//       <button class="key-func" onclick="shift()">Shift</button>
-//       ${["ㅋ", "ㅌ", "ㅊ", "ㅍ", "ㅠ", "ㅜ", "ㅡ"].map(k => keyBtn(k)).join("")}
-//       <button class="key-func" onclick="backspace()">←</button>
-//       ${["호"].map(t => specialKey(t, "key-special"))}
-//     </div>
-//     <div class="keyboard-row">
-//       <button class="key-func" onclick="toggleLanguage()">한/영</button>
-//       <button class="key-space" onclick="insertSpace()">띄움</button>
-//     </div>
-//   `;
-// }
-
-// function keyBtn(char, extraClass = "") {
-//   return `<button class="key ${extraClass}" onclick="pressKey('${char}')">${char}</button>`;
-// }
-
-// function pressKey(jamo) {
-//   if (!activeInput) return;
-//   inputBuffer.push(jamo);
-//   activeInput.value = Hangul.assemble(inputBuffer);
-// }
-
-// function backspace() {
-//   if (!activeInput) return;
-//   inputBuffer.pop();
-//   const assembled = activeInput.classList.contains("numeric") ? inputBuffer.join("") : Hangul.assemble(inputBuffer);
-//   activeInput.value = assembled;
-// }
-
-// function insertSpace() {
-//   if (!activeInput) return;
-//   inputBuffer.push(" ");
-//   activeInput.value = Hangul.assemble(inputBuffer);
-// }
-
-// function specialKey(word, extraClass = "") {
-//     return `<button class="key ${extraClass}" onclick="insertSpecial('${word}')">${word}</button>`;
-// }
-
-// function renderNumberPad() {
-//     const keyboard = document.getElementById("keyboardContainer");
-//     keyboard.innerHTML = `
-//       <div class="keyboard-row">
-//         ${[1, 2, 3].map(k => numberBtn(k)).join("")}
-//       </div>
-//       <div class="keyboard-row">
-//         ${[4, 5, 6].map(k => numberBtn(k)).join("")}
-//       </div>
-//       <div class="keyboard-row">
-//         ${[7, 8, 9].map(k => numberBtn(k)).join("")}
-//       </div>
-//       <div class="keyboard-row">
-//         <button onclick="pressNumber('010')">010</button>
-//         ${numberBtn(0)}
-//         <button onclick="backspace()">←</button>
-//       </div>
-//     `;
-// }
-
-// function numberBtn(num) {
-//     return `<button onclick="pressNumber('${num}')">${num}</button>`;
-// }
-  
-// function pressNumber(num) {
-//     if (!activeInput) return;
-//     inputBuffer.push(num);
-//     activeInput.value = inputBuffer.join("");
-// }
-
 let activeInput = null;
 let inputBuffer = [];
 let isShift = false;
@@ -139,7 +32,7 @@ function renderKeyboard() {
   }
 }
 
-// ✅ 한글 키보드 렌더링
+// 한글 키보드 렌더링
 function renderHangulKeyboard() {
   const keyboard = document.getElementById("keyboardContainer");
 
