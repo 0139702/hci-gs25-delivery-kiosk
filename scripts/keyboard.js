@@ -13,28 +13,27 @@ window.onload = () => {
 };
 
 function setActiveInput(element) {
-    if (activeInput && activeInput !== element) {
-      activeInput.classList.remove('input-focus');
-      // 입력값이 있을 경우 input-filled 유지
-      if (activeInput.value.trim() !== '') {
-        activeInput.classList.add('input-filled');
-      } else {
-        activeInput.classList.remove('input-filled');
-      }
+    const keyboard = document.getElementById("keyboardContainer");
+    if (keyboard) {
+      keyboard.style.display = "block";
+    } else {
+      console.warn("keyboardContainer를 찾지 못했어요.");
+    }
+
+    if (activeInput) {
+      activeInput.classList.remove("input-focus");
     }
   
     activeInput = element;
     inputBuffer = Hangul.disassemble(element.value || '');
-  
-    element.classList.add('input-focus');
-    element.classList.remove('input-filled'); // 입력 중엔 filled 제거
+    element.classList.add("input-focus");
   
     if (element.classList.contains("numeric")) {
       renderNumberPad();
     } else {
       renderKeyboard();
     }
-  }
+}
 
 function renderKeyboard() {
   if (isHangul) {
@@ -216,6 +215,13 @@ function toggleLanguage() {
 window.setActiveInput = setActiveInput;
 window.renderKeyboard = renderKeyboard;
 window.pressKey = pressKey;
+
+function initInputFocusEvents() {
+    const inputs = document.querySelectorAll("input[type='text']");
+    inputs.forEach(input => {
+        input.addEventListener("click", () => setActiveInput(input));
+    });
+}
 
 window.addEventListener("DOMContentLoaded", () => {
     initInputFocusEvents();
