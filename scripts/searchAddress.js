@@ -55,7 +55,8 @@ function setActiveInput(element) {
 }
 
 function initializeSearchPage() {
-  const container = document.getElementById('addressResultContainer');
+  // document.getElementById("keyboardContainer").style.display = "block";
+  const container = document.getElementById("keyboardContainer");
   if (container) container.style.display = "block";
   document.getElementById("pagination").style.display = "none";
 
@@ -142,9 +143,8 @@ function prevPage() {
   }
 }
 
-window.addEventListener("DOMContentLoaded", () => {
-  const senderMain = document.getElementById("senderMainAddress");
-  if (senderMain && sessionStorage.getItem("savedSenderMainAddress")) {
-    senderMain.value = sessionStorage.getItem("savedSenderMainAddress");
+window.addEventListener('DOMContentLoaded', () => {
+  if (typeof initInputFocusEvents === "function") {
+    initInputFocusEvents();
   }
 });
