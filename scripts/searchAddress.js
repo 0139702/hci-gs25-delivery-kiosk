@@ -55,7 +55,8 @@ function setActiveInput(element) {
 }
 
 function initializeSearchPage() {
-  document.getElementById("keyboardContainer").style.display = "block";
+  const container = document.getElementById('addressResultContainer');
+  if (container) container.style.display = "block";
   document.getElementById("pagination").style.display = "none";
 
   pageNumberEl = document.querySelector(".page-number");

@@ -216,3 +216,7 @@ function toggleLanguage() {
 window.setActiveInput = setActiveInput;
 window.renderKeyboard = renderKeyboard;
 window.pressKey = pressKey;
+
+window.addEventListener("DOMContentLoaded", () => {
+    initInputFocusEvents();
+});
