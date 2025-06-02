@@ -67,12 +67,12 @@ function renderHangulKeyboard() {
     </div>
     <div class="keyboard-row four-row">
       <button class="key key-func shift" onclick="toggleShift()">
-        <img class="shift-icon" src="./assets/images/buttons_shift.png">
+        <img class="shift-icon" src="/hci-gs25-delivery-kiosk/assets/images/buttons_shift.png">
         Shift
       </button>
       ${row3.map(k => keyBtnWithSub(k)).join("")}
       <button class="key key-func back" onclick="backspace()">
-        <img class="back-icon" src="./assets/images/button_backSpace.png">
+        <img class="back-icon" src="/hci-gs25-delivery-kiosk/assets/images/button_backSpace.png">
       </button>
       <button class="key key-special ho">호</button>
     </div>
@@ -141,7 +141,7 @@ function renderNumberPad() {
         <button class="key key-func zeros" onclick="pressNumber('010')">010</button>
         ${numberBtn(0)}
         <button class="key key-func backback" onclick="backspace()">
-            <img class="back-icon" src="./assets/images/button_backSpace.png">
+            <img class="back-icon" src="/hci-gs25-delivery-kiosk/assets/images/button_backSpace.png">
         </button>
       </div>
     `;
