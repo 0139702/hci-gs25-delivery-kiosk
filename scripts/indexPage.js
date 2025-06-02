@@ -39,7 +39,7 @@ function showKeyboard() {
 // 주소 검색 페이지로 이동할 때 현재 필드 저장
 function goToSearchPage(targetFieldId) {
     sessionStorage.setItem("addressTarget", targetFieldId);
-  
+
     const fieldsToSave = [
       "senderName", "senderPhone", "receiverName", "receiverPhone",
       "detailAddress", "senderMainAddress", "receiverMainAddress"
@@ -50,6 +50,8 @@ function goToSearchPage(targetFieldId) {
         sessionStorage.setItem(id, el.value);
       }
     });
-  
+
     window.location.href = "/hci-gs25-delivery-kiosk/search.html";
 }
+
+window.goToSearchPage = goToSearchPage;
