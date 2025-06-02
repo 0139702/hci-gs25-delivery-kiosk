@@ -50,6 +50,7 @@ function setActiveInput(element) {
   // 키보드 다시 보여줌
   document.getElementById("keyboardContainer").style.display = "block";
   document.getElementById("pagination").style.display = "none";
+
   // 키보드 렌더링
   renderKeyboard();
 }
@@ -122,11 +123,11 @@ function confirmSelection() {
   }
 
   sessionStorage.setItem("selectedAddress", chosenAddress);
-  window.location.href = "/hci-gs25-delivery-kiosk/index.html";
+  window.location.href = "index.html";
 }
 
 function backToPrev() {
-  window.location.href = "/hci-gs25-delivery-kiosk/index.html";
+  window.location.href = "index.html";
 }
 
 function nextPage() {
@@ -143,8 +144,8 @@ function prevPage() {
   }
 }
 
-window.addEventListener('DOMContentLoaded', () => {
-  if (typeof initInputFocusEvents === "function") {
-    initInputFocusEvents();
-  }
-});
+// window.addEventListener('DOMContentLoaded', () => {
+//   if (typeof initInputFocusEvents === "function") {
+//     initInputFocusEvents();
+//   }
+// });

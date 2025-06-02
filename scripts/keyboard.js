@@ -13,6 +13,11 @@ window.onload = () => {
 };
 
 function setActiveInput(element) {
+    // console.log("🔥 activeInput ID:", element.id);
+    // console.log("📦 classList:", element.classList);
+    // console.log("🧪 Contains 'numeric'?", element.classList.contains('numeric'));
+    // console.log("📃 classList (array):", [...element.classList]);
+
     const keyboard = document.getElementById("keyboardContainer");
     if (keyboard) {
       keyboard.style.display = "block";
@@ -45,41 +50,72 @@ function renderKeyboard() {
 
 // 한글 키보드 렌더링
 function renderHangulKeyboard() {
-  const keyboard = document.getElementById("keyboardContainer");
+    console.log("한글 키패드 렌더링!");
+    const keyboard = document.getElementById("keyboardContainer");
 
-  const topNumbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "-"];
-  const row1 = ["ㅂ", "ㅈ", "ㄷ", "ㄱ", "ㅅ", "ㅛ", "ㅕ", "ㅑ", "ㅐ", "ㅔ", "ㅖ"];
-  const row2 = ["ㅁ", "ㄴ", "ㅇ", "ㄹ", "ㅎ", "ㅗ", "ㅓ", "ㅏ", "ㅣ"];
-  const row3 = ["ㅋ", "ㅌ", "ㅊ", "ㅍ", "ㅠ", "ㅜ", "ㅡ"];
+    const topNumbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "-"];
+    const row1 = ["ㅂ", "ㅈ", "ㄷ", "ㄱ", "ㅅ", "ㅛ", "ㅕ", "ㅑ", "ㅐ", "ㅔ", "ㅖ"];
+    const row2 = ["ㅁ", "ㄴ", "ㅇ", "ㄹ", "ㅎ", "ㅗ", "ㅓ", "ㅏ", "ㅣ"];
+    const row3 = ["ㅋ", "ㅌ", "ㅊ", "ㅍ", "ㅠ", "ㅜ", "ㅡ"];
 
-  keyboard.innerHTML = `
+    keyboard.innerHTML = `
     <div class="keyboard-row top-row">
-      ${topNumbers.map(n => keyBtn(n, "key-number")).join("")}
+        ${topNumbers.map(n => keyBtn(n, "key-number")).join("")}
     </div>
     <div class="keyboard-row">
-      ${row1.map(k => keyBtnWithSub(k)).join("")}
-      ${specialKey("아파트")}
+        ${row1.map(k => keyBtnWithSub(k)).join("")}
+        ${specialKey("아파트")}
     </div>
     <div class="keyboard-row three-row">
-      ${row2.map(k => keyBtnWithSub(k)).join("")}
-      <button class="key key-special dong">동</button>
+        ${row2.map(k => keyBtnWithSub(k)).join("")}
+        <button class="key key-special dong" onclick="pressKey('동')">동</button>
     </div>
     <div class="keyboard-row four-row">
-      <button class="key key-func shift" onclick="toggleShift()">
-        <img class="shift-icon" src="/hci-gs25-delivery-kiosk/assets/images/buttons_shift.png">
-        Shift
-      </button>
-      ${row3.map(k => keyBtnWithSub(k)).join("")}
-      <button class="key key-func back" onclick="backspace()">
-        <img class="back-icon" src="/hci-gs25-delivery-kiosk/assets/images/button_backSpace.png">
-      </button>
-      <button class="key key-special ho">호</button>
+        <button class="key key-func shift" onclick="toggleShift()">
+            <img class="shift-icon" src="/assets/images/buttons_shift.png">
+            Shift
+        </button>
+        ${row3.map(k => keyBtnWithSub(k)).join("")}
+        <button class="key key-func back" onclick="backspace()">
+            <img class="back-icon" src="/assets/images/button_backSpace.png">
+        </button>
+        <button class="key key-special ho" onclick="pressKey('호')">호</button>
     </div>
     <div class="keyboard-row bottom-row">
-      <button class="key key-func lang" onclick="toggleLanguage()">한/영</button>
-      <button class="key key-space" onclick="insertSpace()">띄움</button>
+        <button class="key key-func lang" onclick="toggleLanguage()">한/영</button>
+        <button class="key key-space" onclick="insertSpace()">띄움</button>
     </div>
-  `;
+    `;
+}
+
+function renderNumberPad() {
+    console.log("숫자 키패드 렌더링!");
+    const keyboard = document.getElementById("keyboardContainer");
+    keyboard.innerHTML = `
+    <div class="keyboard-row numPad first-num">
+        ${[1, 2, 3].map(k => numberBtn(k)).join("")}
+    </div>
+    <div class="keyboard-row numPad second-num">
+        ${[4, 5, 6].map(k => numberBtn(k)).join("")}
+    </div>
+    <div class="keyboard-row numPad third-num">
+        ${[7, 8, 9].map(k => numberBtn(k)).join("")}
+    </div>
+    <div class="keyboard-row">
+        <button class="key key-func zeros" onclick="pressNumber('010')">010</button>
+        ${numberBtn(0)}
+        <button class="key key-func backback" onclick="backspace()">
+            <img class="back-icon" src="/assets/images/button_backSpace.png">
+        </button>
+    </div>
+    `;
+}
+
+function initInputFocusEvents() {
+    const inputs = document.querySelectorAll("input[type='text']");
+    inputs.forEach(input => {
+        input.addEventListener("click", () => setActiveInput(input));
+    });
 }
 
 function renderEnglishKeyboard() {
@@ -96,13 +132,18 @@ function renderEnglishKeyboard() {
     <div class="keyboard-row">${row1.map(k => keyBtn(k)).join("")}</div>
     <div class="keyboard-row">${row2.map(k => keyBtn(k)).join("")}</div>
     <div class="keyboard-row">
-      <button class="key key-func" onclick="toggleShift()">Shift</button>
+      <button class="key key-func shift" onclick="toggleShift()">
+            <img class="shift-icon" src="/assets/images/buttons_shift.png">
+            Shift
+        </button>
       ${row3.map(k => keyBtn(k)).join("")}
-      <button class="key key-func" onclick="backspace()">←</button>
+      <button class="key key-func back" onclick="backspace()">
+            <img class="back-icon" src="/assets/images/button_backSpace.png">
+        </button>
     </div>
     <div class="keyboard-row bottom-row">
-      <button class="key key-func" onclick="toggleLanguage()">한/영</button>
-      <button class="key key-space" onclick="insertSpace()">띄움</button>
+      <button class="key key-func lang" onclick="toggleLanguage()">한/영</button>
+        <button class="key key-space" onclick="insertSpace()">띄움</button>
     </div>
   `;
 }
@@ -124,31 +165,9 @@ function keyBtnWithSub(char) {
   `;
 }
 
-function renderNumberPad() {
-    const keyboard = document.getElementById("keyboardContainer");
-    keyboard.innerHTML = `
-      <div class="keyboard-row numPad first-num">
-        ${[1, 2, 3].map(k => numberBtn(k)).join("")}
-      </div>
-      <div class="keyboard-row numPad second-num">
-        ${[4, 5, 6].map(k => numberBtn(k)).join("")}
-      </div>
-      <div class="keyboard-row numPad third-num">
-        ${[7, 8, 9].map(k => numberBtn(k)).join("")}
-      </div>
-      <div class="keyboard-row">
-        <button class="key key-func zeros" onclick="pressNumber('010')">010</button>
-        ${numberBtn(0)}
-        <button class="key key-func backback" onclick="backspace()">
-            <img class="back-icon" src="/hci-gs25-delivery-kiosk/assets/images/button_backSpace.png">
-        </button>
-      </div>
-    `;
-}
-
-window.addEventListener('DOMContentLoaded', () => {
-    initInputFocusEvents();
-});
+// window.addEventListener('DOMContentLoaded', () => {
+//     initInputFocusEvents();
+// });
 
 function numberBtn(num) {
     return `<button class="numBtn" onclick="pressNumber('${num}')">${num}</button>`;
@@ -176,7 +195,7 @@ function pressKey(char) {
     activeInput.value = value;
   
     if (value.trim()) {
-      activeInput.classList.add("input-filled");
+      activeInput.classList.add("input-focus");
     } else {
       activeInput.classList.remove("input-filled");
     }
@@ -212,17 +231,10 @@ function toggleLanguage() {
   renderKeyboard();
 }
 
-window.setActiveInput = setActiveInput;
-window.renderKeyboard = renderKeyboard;
-window.pressKey = pressKey;
-
-function initInputFocusEvents() {
-    const inputs = document.querySelectorAll("input[type='text']");
-    inputs.forEach(input => {
-        input.addEventListener("click", () => setActiveInput(input));
-    });
-}
-
 window.addEventListener("DOMContentLoaded", () => {
     initInputFocusEvents();
 });
+
+window.setActiveInput = setActiveInput;
+window.renderKeyboard = renderKeyboard;
+window.pressKey = pressKey;

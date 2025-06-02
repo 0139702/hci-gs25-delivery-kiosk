@@ -1,27 +1,29 @@
+<!-- /hci-gs25-delivery-kiosk -->
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
   <title>GS25 편의점 택배 키오스크</title>
-  <link rel="stylesheet" href="/hci-gs25-delivery-kiosk/stylesheets/style.css">
+  <link rel="stylesheet" href="/stylesheets/style.css">
   <script src="https://unpkg.com/hangul-js"></script>
 </head>
 <body>
     <div class="viewport">
         <div class="form-wrapper">
-            <img class="bar" src="/hci-gs25-delivery-kiosk/assets/images/상단bar.png" alt="">
+            <img class="bar" src="/assets/images/상단bar.png" alt="">
             <h1 class="search">배송정보 등록</h1>
             <div class="menus">
                 <div class="first-page">
-                    <img class="home-icon" src="/hci-gs25-delivery-kiosk/assets/images/icons_home.png" alt="">
+                    <img class="home-icon" src="/assets/images/icons_home.png" alt="">
                     <span class="home-text">초기 화면</span>
                 </div>
-                <img class="question-icon" src="/hci-gs25-delivery-kiosk/assets/images/icons_question.png" alt="">
+                <img class="question-icon" src="/assets/images/icons_question.png" alt="">
             </div>
         
             <!-- 보내는 사람 -->
             <div class="input-box sender">
-                <h2><img src="/hci-gs25-delivery-kiosk/assets/images/icons_sender.png" class="icon"> 보내는 사람</h2>
+                <h2><img src="/assets/images/icons_sender.png" class="icon"> 보내는 사람</h2>
               
                 <div class="name-phone-row">
                   <input type="text" id="senderName" placeholder="보내는 사람 이름" onclick="setActiveInput(this)">
@@ -40,7 +42,7 @@
         
             <!-- 받는 사람 -->
             <div class="input-box receiver">
-                <h2><img src="/hci-gs25-delivery-kiosk/assets/images/icons_receiver.png" class="receiver-icon"> 받는 사람</h2>
+                <h2><img src="/assets/images/icons_receiver.png" class="receiver-icon"> 받는 사람</h2>
               
                 <div class="name-phone-row">
                   <input type="text" id="receiverName" placeholder="받는 사람 이름" onclick="setActiveInput(this)">
@@ -59,11 +61,11 @@
             
             <div class="bottom-bar">
                 <button class="prev-btn btn" onclick="backToPrev()">
-                     <img class="prev-btn btn" src="/hci-gs25-delivery-kiosk/assets/images/prevBtn.png" alt="">
+                     <img class="prev-btn btn" src="/assets/images/prevBtn.png" alt="">
                 </button>
-                <img class="logo" src="/hci-gs25-delivery-kiosk/assets/images/logo_GS25.png" alt="">
+                <img class="logo" src="/assets/images/logo_GS25.png" alt="">
                 <button class="next-btn btn" onclick="confirmSelection()">
-                    <img class="next-btn btn" src="/hci-gs25-delivery-kiosk/assets/images/noSelect.png" alt="">
+                    <img class="next-btn btn" src="/assets/images/noSelect.png" alt="">
                 </button> 
             </div>
 
@@ -72,8 +74,8 @@
             </div>
     </div>
   <!-- <script src="/scripts/script.js"></script> -->
-  <script src="/hci-gs25-delivery-kiosk/scripts/keyboard.js"></script>
-  <script src="/hci-gs25-delivery-kiosk/scripts/searchAddress.js"></script>
-  <script src="/hci-gs25-delivery-kiosk/scripts/indexPage.js"></script>
+  <script src="/scripts/keyboard.js"></script>
+  <!-- <script src="/scripts/searchAddress.js"></script> -->
+  <script src="/scripts/indexPage.js"></script>
 </body>
 </html>
