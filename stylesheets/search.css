@@ -96,7 +96,7 @@ p {
 #pagination {
     position: fixed;
     top: 1600px; /* 키보드 위로 살짝 띄워줌 */
-    width: 1080px;
+    width: 1000px;
     display: flex;
     justify-content: center;
     align-items: center;

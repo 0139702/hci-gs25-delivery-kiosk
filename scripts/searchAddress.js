@@ -7,11 +7,16 @@ let pageNumberEl;
 let pageTotalEl;
 
 function searchAddress() {
+  resetErrorUI();
+
   const keyword = document.getElementById("keyword").value.trim();
   if (!keyword) {
     alert("검색어를 입력하세요.");
     return;
   }
+
+  const noResultBox = document.getElementById("noResultInfo");
+  if (noResultBox) noResultBox.classList.remove("show");
 
   document.getElementById("results").innerHTML = "";
   document.getElementById("page-info").innerText = "";
@@ -32,15 +37,62 @@ function searchAddress() {
     },
     dataType: "jsonp",
     success: function (response) {
-      jusoList = response.results.juso;
+      jusoList = response.results.juso || [];
       totalPages = Math.ceil(jusoList.length / 6);
       currentPage = 1;
+
+      if (jusoList.length === 0) {
+        showNoResultUI(keyword);
+        return;
+      }
+    
       showPage(currentPage);
-    },
+    }, 
     error: function () {
       alert("주소 검색 실패");
     }
   });
+}
+
+function showNoResultUI(keyword) {
+  document.getElementById("results").innerHTML = `
+    <div class="no-result-message">
+      조회된 주소가 없습니다.<br>검색하려는 주소를 정확하게 입력해 주세요.
+    </div>
+  `;
+  document.getElementById("page-info").innerText = "0/0";
+  document.getElementById("keyboardContainer").style.display = "none";
+  document.getElementById("keyword").classList.add("input-error");
+
+  const keywordBox = document.getElementById("enteredKeyword");
+  if (keywordBox) {
+    keywordBox.style.display = "block";
+    keywordBox.classList.add("error");
+    keywordBox.innerHTML = `<strong style="color:#CC0000">${keyword}</strong> 에 대한 주소를 찾을 수 없습니다.`;
+  }
+
+  const noResultInfo = document.getElementById("noResultInfo");
+  if (noResultInfo) {
+    noResultInfo.style.display = "flex";
+  }
+}
+
+function resetErrorUI() {
+  const keywordBox = document.getElementById("enteredKeyword");
+  if (keywordBox) {
+    keywordBox.style.display = "none";
+    keywordBox.innerHTML = "";
+    keywordBox.classList.remove("error");
+  }
+
+  const noResultInfo = document.getElementById("noResultInfo");
+  if (noResultInfo) noResultInfo.style.display = "none";
+
+  const resultMessage = document.querySelector(".no-result-message");
+  if (resultMessage) resultMessage.remove();
+
+  const keywordInput = document.getElementById("keyword");
+  if (keywordInput) keywordInput.classList.remove("input-error");
 }
 
 function setActiveInput(element) {
@@ -74,6 +126,19 @@ function initializeSearchPage() {
 document.addEventListener("DOMContentLoaded", initializeSearchPage);
 
 function showPage(pageNum) {
+  const keywordBox = document.getElementById("enteredKeyword");
+  if (keywordBox) {
+    keywordBox.style.display = "none";
+    keywordBox.innerHTML = "";
+    keywordBox.classList.remove("error");
+  }
+
+  const noResultInfo = document.getElementById("noResultInfo");
+  if (noResultInfo) noResultInfo.style.display = "none";
+
+  const resultMessage = document.querySelector(".no-result-message");
+  if (resultMessage) resultMessage.remove();
+
   const resultsDiv = document.getElementById("results");
   resultsDiv.innerHTML = "";
 
@@ -112,7 +177,7 @@ function showPage(pageNum) {
       const selectedEl = document.querySelector("#selectedAddress");
       if (selectedEl) selectedEl.textContent = chosenAddress;
     
-      updateConfirmButtonState(); // 버튼 활성화 갱신
+      updateConfirmButtonState();
     });
 
     resultsDiv.appendChild(box);
@@ -148,9 +213,3 @@ function prevPage() {
     showPage(currentPage);
   }
 }
-
-// window.addEventListener('DOMContentLoaded', () => {
-//   if (typeof initInputFocusEvents === "function") {
-//     initInputFocusEvents();
-//   }
-// });

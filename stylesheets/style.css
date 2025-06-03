@@ -511,3 +511,64 @@ label {
   cursor: pointer;
   background: none;
 }
+
+.no-result-message {
+  font-size: 36px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 54.7px;
+  color: #121212;
+  margin-top: 109.34px;
+  margin-bottom: 29px;
+}
+
+.search-feedback-box {
+  display: none;
+  width: 608px;
+  height: 35px;
+  background-color: #C0E6FF;
+  padding: 25px 20px 30px 20px;
+  margin: 0 195px 0 175px;
+  border-radius: 7px;
+  font-size: 32px;
+  color: #121212;
+  text-align: center;
+}
+
+.no-result-info {
+  color: #989898;
+  padding: 20px;
+  margin-top: 20px;
+  text-align: left;
+  flex-direction: column;
+  align-items: center;
+}
+
+.noResult-info {
+  font-size: 30px;
+  line-height: 50px;
+  margin: 0;
+}
+
+.noResultText {
+  font-size: 30px;
+  text-align: center;
+  color: #121212;
+  margin: 177.87px 0 0 0;
+}
+
+.manual-search-btn {
+  width: 608px;
+  height: 112px;
+  margin-top: 25px;
+  padding: 15px 30px;
+  background-color: #4da6ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-family: 'NanumGothic';
+  font-size: 38px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 2.7px 9.74px rgba(0, 0, 0, 0.4);
+}

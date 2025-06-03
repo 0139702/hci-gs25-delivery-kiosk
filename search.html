@@ -28,7 +28,7 @@
                 <img src="/assets/images/button_close.png" alt="">
               </button>
             </div>
-          </div>
+        </div>
 
         <div class="search-container">
             <div class="search-field">
@@ -49,8 +49,19 @@
                 <img class="result-not" src="/assets/images/icons_dashNotSelect.png" alt="">
                 <span class="result-text">검색 결과</span>
             </div>
-    
+            
             <div id="results"></div>
+
+            <div id="enteredKeyword" class="search-feedback-box"></div>
+
+            <div id="noResultInfo" class="no-result-info" style="display: none;">
+                <p class="noResult-info">예) 도 로 명(신주소) : 테헤란로 201<br>
+                   예) 지&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;번(구주소) : 역삼동 679-5<br>
+                   예) 건 물 명 : 아주빌딩<br></p>
+                <p class="noResultText">검색한 주소가 안 나와 답답하신가요?</p>
+              
+                <button class="manual-search-btn">지번 주소로 수동 찾기</button>
+            </div>
     
             <div id="pagination">
                 <button class="arrow-btn" onclick="prevPage()">
