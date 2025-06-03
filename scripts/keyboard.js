@@ -13,16 +13,17 @@ window.onload = () => {
 };
 
 function setActiveInput(element) {
-    // console.log("🔥 activeInput ID:", element.id);
-    // console.log("📦 classList:", element.classList);
-    // console.log("🧪 Contains 'numeric'?", element.classList.contains('numeric'));
-    // console.log("📃 classList (array):", [...element.classList]);
+    //error dectection
+    // console.log("activeInput ID:", element.id);
+    // console.log("classList:", element.classList);
+    // console.log("Contains 'numeric'?", element.classList.contains('numeric'));
+    // console.log("classList (array):", [...element.classList]);
 
     const keyboard = document.getElementById("keyboardContainer");
     if (keyboard) {
       keyboard.style.display = "block";
     } else {
-      console.warn("keyboardContainer를 찾지 못했어요.");
+      console.warn("keyboardContainer를 찾지 못함");
     }
 
     if (activeInput) {
@@ -116,7 +117,7 @@ function initInputFocusEvents() {
     inputs.forEach(input => {
         input.addEventListener("click", () => setActiveInput(input));
         input.addEventListener("input", () => {
-          updateConfirmButtonState();  // ✅ 입력 변화 시 버튼 상태 갱신
+          updateConfirmButtonState();
         });
       });
 }
@@ -175,10 +176,50 @@ function numberBtn(num) {
   
 function pressNumber(num) {
     if (!activeInput) return;
-    inputBuffer.push(num);
-    activeInput.value = inputBuffer.join("");
+    // inputBuffer.push(num);
+    // const value = inputBuffer.join("");
+    // activeInput.value = inputBuffer.join("");
+    // 숫자만 추출 (하이픈 제외)
+    let raw = inputBuffer.filter(c => /\d/.test(c)).join("");
+
+    // 11자리 이상이면 입력 안 받음
+    if (raw.length >= 11) return;
+
+    raw += num;
+
+    // 하이픈 형식 적용
+    let formatted = raw;
+    if (raw.length <= 3) {
+        formatted = raw;
+    } else if (raw.length <= 7) {
+        formatted = `${raw.slice(0, 3)}-${raw.slice(3)}`;
+    } else {
+        formatted = `${raw.slice(0, 3)}-${raw.slice(3, 7)}-${raw.slice(7)}`;
+    }
+
+    // inputBuffer 갱신 (하이픈 포함)
+    inputBuffer = formatted.split("");
+    activeInput.value = formatted;
+
+    if (formatted.trim()) {
+        activeInput.classList.add("input-filled");
+        activeInput.classList.remove("input-focus");
+    } else {
+        activeInput.classList.remove("input-filled");
+        activeInput.classList.add("input-focus");
+    }
 
     activeInput.dispatchEvent(new Event("input"));
+
+    // 11자리 입력 끝나면 다음 input으로 자동 포커스 이동
+    // if (raw.length === 11) {
+    //     const inputs = Array.from(document.querySelectorAll('input[type="text"]'));
+    //     const currentIndex = inputs.indexOf(activeInput);
+    //     if (currentIndex >= 0 && currentIndex < inputs.length - 1) {
+    //         inputs[currentIndex + 1].focus();
+    //         setActiveInput(inputs[currentIndex + 1]);
+    //     }
+    // }
 }
 
 function specialKey(originalLabel) {
@@ -207,17 +248,19 @@ function specialKey(originalLabel) {
 
 function pressKey(char) {
     if (!activeInput || activeInput.tagName !== 'INPUT') return;
-
+    
     inputBuffer.push(char);
     const value = isHangul ? Hangul.assemble(inputBuffer) : inputBuffer.join("");
     activeInput.value = value;
-  
+    
     if (value.trim()) {
-      activeInput.classList.add("input-focus");
+        activeInput.classList.add("input-filled");
+        activeInput.classList.remove("input-focus");
     } else {
-      activeInput.classList.remove("input-filled");
+        activeInput.classList.remove("input-filled");
+        activeInput.classList.add("input-focus");
     }
-
+    
     activeInput.dispatchEvent(new Event("input"));
 }
 
@@ -225,12 +268,31 @@ function insertSpecial(word) {
   if (!activeInput) return;
   for (const c of word) inputBuffer.push(c);
   activeInput.value = Hangul.assemble(inputBuffer);
+
+  if (value.trim()) {
+    activeInput.classList.add("input-filled");
+    activeInput.classList.remove("input-focus");
+  } else {
+    activeInput.classList.remove("input-filled");
+    activeInput.classList.add("input-focus");
+  }
 }
 
 function backspace() {
-  if (!activeInput) return;
-  inputBuffer.pop();
-  activeInput.value = isHangul ? Hangul.assemble(inputBuffer) : inputBuffer.join("");
+    if (!activeInput) return;
+    inputBuffer.pop();
+    const value = isHangul ? Hangul.assemble(inputBuffer) : inputBuffer.join("");
+    activeInput.value = value;
+  
+    if (value.trim()) {
+      activeInput.classList.add("input-filled");
+      activeInput.classList.remove("input-focus");
+    } else {
+      activeInput.classList.remove("input-filled");
+      activeInput.classList.add("input-focus");
+    }
+  
+    activeInput.dispatchEvent(new Event("input"));
 }
 
 function insertSpace() {

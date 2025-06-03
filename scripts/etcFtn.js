@@ -19,7 +19,7 @@ function updateActionButtonForIndex() {
 
 // search.html buttons
   function updateActionButtonForSearch() {
-    const selectedAddress = document.querySelector(".address-item.selected"); // ✅ 이 부분!
+    const selectedAddress = document.querySelector(".address-item.selected");
     const actionButton = document.getElementById("actionButton");
     const label = document.getElementById("actionLabel");
 
@@ -67,3 +67,26 @@ function onAddressSelected(address) {
     document.querySelector('#selectedAddress').textContent = address;
     updateConfirmButtonState();
 }
+
+function handleActionButtonClick() {
+    const isSearchPage = window.location.pathname.includes("search.html");
+  
+    if (isSearchPage) {
+      confirmSelection();
+    } else {
+      goToCompletePageIfValid();
+    }
+}
+
+function goToCompletePageIfValid() {
+    const requiredInputs = document.querySelectorAll("input[required]");
+    const allFilled = Array.from(requiredInputs).every(input => input.value.trim() !== "");
+  
+    if (!allFilled) {
+      alert("모든 항목을 입력해 주세요.");
+      return;
+    }
+
+    window.location.href = "complete.html";
+}
+  

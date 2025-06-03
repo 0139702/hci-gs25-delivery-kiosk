@@ -1,4 +1,4 @@
-<!-- /hci-gs25-delivery-kiosk -->
+<!-- Github 경로 /hci-gs25-delivery-kiosk -->
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -77,14 +77,12 @@
         
           <img class="logo" src="/assets/images/logo_GS25.png" alt="">
         
-          <button id="actionButton" class="next-btn btn" onclick="confirmSelection()" disabled>
+          <button id="actionButton" class="next-btn btn" onclick="goToCompletePageIfValid()">
             <span id="actionLabel">입력 완료</span>
           </button>
         </div>
 
-        <div id="keyboardContainer" class="keyboard-container">
-            <!-- 키보드는 JS에서 -->
-        </div>
+        <div id="keyboardContainer" class="keyboard-container"></div>
     </div>
   <!-- <script src="/scripts/script.js"></script> -->
   <script src="/scripts/keyboard.js"></script>

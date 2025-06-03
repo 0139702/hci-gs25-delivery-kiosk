@@ -13,6 +13,11 @@ function restoreAddressFields() {
         if (targetInput) {
         targetInput.value = selectedAddress;
 
+        if (selectedAddress.trim()) {
+            targetInput.classList.add("input-filled");
+            targetInput.classList.remove("input-focus");
+        }
+
         // 값 반영된 후에 제거
         sessionStorage.removeItem("selectedAddress");
         sessionStorage.removeItem("addressTarget");
@@ -22,12 +27,22 @@ function restoreAddressFields() {
     // 나머지 필드 복원
     const fieldsToRestore = [
         "senderName", "senderPhone", "receiverName", "receiverPhone",
-        "detailAddress", "senderMainAddress", "receiverMainAddress"
+        "senderDetailAddress", "senderMainAddress",
+        "receiverDetailAddress", "receiverMainAddress"
     ];
+
     fieldsToRestore.forEach(id => {
         const saved = sessionStorage.getItem(id);
         const el = document.getElementById(id);
-        if (saved && el) el.value = saved;
+        if (saved && el) {
+            el.value = saved;
+
+            // 스타일 적용
+            if (saved.trim()) {
+                el.classList.add("input-filled");
+                el.classList.remove("input-focus");
+            }
+        }
     });
 }
   
@@ -42,7 +57,8 @@ function goToSearchPage(targetFieldId) {
 
     const fieldsToSave = [
       "senderName", "senderPhone", "receiverName", "receiverPhone",
-      "detailAddress", "senderMainAddress", "receiverMainAddress"
+      "senderDetailAddress", "senderMainAddress",
+      "receiverDetailAddress", "receiverMainAddress"
     ];
     fieldsToSave.forEach(id => {
       const el = document.getElementById(id);
