@@ -210,6 +210,7 @@ function pressNumber(num) {
     }
 
     activeInput.dispatchEvent(new Event("input"));
+    updateActionButtonForIndex();
 
     // 11자리 입력 끝나면 다음 input으로 자동 포커스 이동
     // if (raw.length === 11) {
@@ -262,6 +263,7 @@ function pressKey(char) {
     }
     
     activeInput.dispatchEvent(new Event("input"));
+    updateActionButtonForIndex();
 }
 
 function insertSpecial(word) {
@@ -293,6 +295,7 @@ function backspace() {
     }
   
     activeInput.dispatchEvent(new Event("input"));
+    updateActionButtonForIndex();
 }
 
 function insertSpace() {
