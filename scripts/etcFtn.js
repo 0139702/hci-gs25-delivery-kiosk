@@ -12,6 +12,8 @@ function updateActionButtonForIndex() {
     const allFilled = Array.from(allInputs).every(input => input.value.trim() !== "");
     const actionButton = document.getElementById("actionButton");
     const label = document.getElementById("actionLabel");
+
+    if (!actionButton || !label) return;
   
     label.textContent = "입력 완료";
     actionButton.disabled = !allFilled;
@@ -96,3 +98,32 @@ function goToCompletePageIfValid() {
     window.location.href = "/hci-gs25-delivery-kiosk/complete.html";
 }
   
+window.onload = function () {
+    const data = JSON.parse(sessionStorage.getItem("deliveryForm") || "{}");
+    if (!data.senderName) return; // 아무 값 없으면 무시
+  
+    const content = `
+  📦 GS25 편의점 택배 접수 정보
+  
+  [보내는 사람]
+  이름: ${data.senderName}
+  전화번호: ${data.senderPhone}
+  주소: ${data.senderAddress}
+  상세주소: ${data.senderDetail}
+  
+  [받는 사람]
+  이름: ${data.receiverName}
+  전화번호: ${data.receiverPhone}
+  주소: ${data.receiverAddress}
+  상세주소: ${data.receiverDetail}
+  
+  [접수 시간]
+  ${data.selectedTime}
+    `;
+  
+    const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = `택배접수정보_${Date.now()}.txt`;
+    link.click();
+};
