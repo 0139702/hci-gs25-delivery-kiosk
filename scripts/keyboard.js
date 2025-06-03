@@ -13,7 +13,7 @@ window.onload = () => {
 };
 
 function setActiveInput(element) {
-    //error dectection
+    // error dectection
     // console.log("activeInput ID:", element.id);
     // console.log("classList:", element.classList);
     // console.log("Contains 'numeric'?", element.classList.contains('numeric'));
@@ -84,7 +84,7 @@ function renderHangulKeyboard() {
     </div>
     <div class="keyboard-row bottom-row">
         <button class="key key-func lang" onclick="toggleLanguage()">한/영</button>
-        <button class="key key-space" onclick="insertSpace()">띄움</button>
+        <button class="key key-space" onclick="insertSpace()">띄&nbsp;움</button>
     </div>
     `;
 }

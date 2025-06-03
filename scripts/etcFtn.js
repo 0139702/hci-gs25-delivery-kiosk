@@ -29,12 +29,18 @@ function updateActionButtonForIndex() {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-    const confirmBtn = document.querySelector('.next-btn span');
-    if (window.location.pathname.includes('/hci-gs25-delivery-kiosk/search.html')) {
-        confirmBtn.textContent = '선택 완료';
-    } else {
-        confirmBtn.textContent = '입력 완료';
-    }
+    // const confirmBtn = document.querySelector('.next-btn span');
+    // if (window.location.pathname.includes('/hci-gs25-delivery-kiosk/search.html')) {
+    //     confirmBtn.textContent = '선택 완료';
+    // } else {
+    //     confirmBtn.textContent = '입력 완료';
+    // }
+
+    updateActionButtonForIndex(); // 초기 상태 체크
+
+    document.querySelectorAll("input[required]").forEach(input => {
+        input.addEventListener("input", updateActionButtonForIndex);
+    });
 });
 
 function updateConfirmButtonState() {
