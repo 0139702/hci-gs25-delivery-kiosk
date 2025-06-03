@@ -49,14 +49,18 @@ function updateConfirmButtonState() {
   
     const isSearchPage = window.location.pathname.includes("/hci-gs25-delivery-kiosk/search.html");
   
-    const confirmBtn = document.querySelector('.next-btn span');
-    if (window.location.pathname.includes('/search.html')) {
-        confirmBtn.textContent = chosenAddress ? '선택 완료' : '주소 선택';
+    if (isSearchPage) {
+      const selectedAddress = document.querySelector('#selectedAddress');
+      const isSelected = selectedAddress && selectedAddress.textContent.trim() !== '';
+      btn.disabled = !isSelected;
+      btn.classList.toggle("active", isSelected);
+      span.textContent = "선택 완료";
     } else {
-        const allInputs = document.querySelectorAll("input[required]");
-        const allFilled = Array.from(allInputs).every(input => input.value.trim() !== "");
-        confirmBtn.textContent = "입력 완료";
-        document.getElementById("actionButton").disabled = !allFilled;
+      const inputs = document.querySelectorAll("input[type='text']");
+      const allFilled = [...inputs].every(input => input.value.trim() !== '');
+      btn.disabled = !allFilled;
+      btn.classList.toggle("active", allFilled);
+      span.textContent = "입력 완료";
     }
 }
 
