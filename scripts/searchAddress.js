@@ -193,11 +193,11 @@ function confirmSelection() {
   }
 
   sessionStorage.setItem("selectedAddress", chosenAddress);
-  window.location.href = "index.html";
+  window.location.href = "/hci-gs25-delivery-kiosk/index.html";
 }
 
 function backToPrev() {
-  window.location.href = "index.html";
+  window.location.href = "/hci-gs25-delivery-kiosk/index.html";
 }
 
 function nextPage() {

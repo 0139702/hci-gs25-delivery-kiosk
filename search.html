@@ -4,28 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=1920, height=1080, initial-scale=1.0">
     <title>GS25 편의점 택배 키오스크-search</title>
-    <link rel="stylesheet" href="/stylesheets/search.css">
-    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/hci-gs25-delivery-kiosk/stylesheets/search.css">
+    <link rel="stylesheet" href="/hci-gs25-delivery-kiosk/stylesheets/style.css">
     <script src="https://unpkg.com/hangul-js"></script>    
 </head>
 <body onclick="updateActionButtonForSearch()">
     <div class="viewport">
-        <img class="bar" src="/assets/images/상단bar.png" alt="">
+        <img class="bar" src="/hci-gs25-delivery-kiosk/assets/images/상단bar.png" alt="">
         <h1 class="search">보내는 주소 등록</h1>
         <div class="menus">
             <div class="first-page">
-                <img class="home-icon" src="/assets/images/icons_home.png" alt="">
+                <img class="home-icon" src="/hci-gs25-delivery-kiosk/assets/images/icons_home.png" alt="">
                 <span class="home-text">초기 화면</span>
             </div>
-            <img class="question-icon" src="/assets/images/icons_question.png" onclick="openHelp()" alt="">
+            <img class="question-icon" src="/hci-gs25-delivery-kiosk/assets/images/icons_question.png" onclick="openHelp()" alt="">
         </div>
 
         <!-- 도움말 팝업 -->
         <div id="helpPopup" class="popup-overlay" style="display: none;">
             <div class="popup-content">
-              <img src="/assets/images/support_bg.png" alt="도움말" class="help-image">
+              <img src="/hci-gs25-delivery-kiosk/assets/images/support_bg.png" alt="도움말" class="help-image">
               <button class="popup-close" onclick="closeHelp()">
-                <img src="/assets/images/button_close.png" alt="">
+                <img src="/hci-gs25-delivery-kiosk/assets/images/button_close.png" alt="">
               </button>
             </div>
         </div>
@@ -36,7 +36,7 @@
                 <div class="search-bar">
                     <input type="text" id="keyword" placeholder="검색할 주소를 입력해주세요" readonly onclick="setActiveInput(this)">
                     <button class="glass-btn" onclick="searchAddress()">
-                        <img class="glass-icon" src="/assets/images/icons_search.png" alt="검색">
+                        <img class="glass-icon" src="/hci-gs25-delivery-kiosk/assets/images/icons_search.png" alt="검색">
                     </button>
                 </div>
             </div>
@@ -46,7 +46,7 @@
             <div id="selectedAddress" style="display: none;"></div>
 
             <div class="show-result">
-                <img class="result-not" src="/assets/images/icons_dashNotSelect.png" alt="">
+                <img class="result-not" src="/hci-gs25-delivery-kiosk/assets/images/icons_dashNotSelect.png" alt="">
                 <span class="result-text">검색 결과</span>
             </div>
             
@@ -65,7 +65,7 @@
     
             <div id="pagination">
                 <button class="arrow-btn" onclick="prevPage()">
-                    <img class="arrow-btn btn-leftNo" src="/assets/images/button_leftNo.png" alt="">
+                    <img class="arrow-btn btn-leftNo" src="/hci-gs25-delivery-kiosk/assets/images/button_leftNo.png" alt="">
                 </button>
     
                 <span id="page-info">
@@ -75,19 +75,19 @@
                 </span>
     
                 <button class="arrow-btn" onclick="nextPage()">
-                    <img class="arrow-btn btn-rightYes" src="/assets/images/button_rightYes.png" alt="">
+                    <img class="arrow-btn btn-rightYes" src="/hci-gs25-delivery-kiosk/assets/images/button_rightYes.png" alt="">
                 </button>
             </div>
         </div>
 
         <div class="bottom-bar">
             <button class="prev-btn btn common-prev" onclick="backToPrev()">
-                <img class="prev-icon" src="/assets/images/button_previous.png" alt="">
+                <img class="prev-icon" src="/hci-gs25-delivery-kiosk/assets/images/button_previous.png" alt="">
                 <span>이전으로</span>
             </button>
             
           
-            <img class="logo" src="/assets/images/logo_GS25.png" alt="">
+            <img class="logo" src="/hci-gs25-delivery-kiosk/assets/images/logo_GS25.png" alt="">
           
             <button id="actionButton" class="next-btn btn" onclick="confirmSelection()" disabled>
               <span id="actionLabel">입력 완료</span>
@@ -98,8 +98,8 @@
     </div>
     
     <script src="https://code.jquery.com/jquery-1.8.3.min.js"></script>
-    <script src="/scripts/keyboard.js"></script>
-    <script src="/scripts/searchAddress.js"></script>
-    <script src="/scripts/etcFtn.js"></script>
+    <script src="/hci-gs25-delivery-kiosk/scripts/keyboard.js"></script>
+    <script src="/hci-gs25-delivery-kiosk/scripts/searchAddress.js"></script>
+    <script src="/hci-gs25-delivery-kiosk/scripts/etcFtn.js"></script>
 </body>
 </html>

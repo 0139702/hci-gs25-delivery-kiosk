@@ -73,12 +73,12 @@ function renderHangulKeyboard() {
     </div>
     <div class="keyboard-row four-row">
         <button class="key key-func shift" onclick="toggleShift()">
-            <img class="shift-icon" src="/assets/images/buttons_shift.png">
+            <img class="shift-icon" src="/hci-gs25-delivery-kiosk/assets/images/buttons_shift.png">
             Shift
         </button>
         ${row3.map(k => keyBtnWithSub(k)).join("")}
         <button class="key key-func back" onclick="backspace()">
-            <img class="back-icon" src="/assets/images/button_backSpace.png">
+            <img class="back-icon" src="/hci-gs25-delivery-kiosk/assets/images/button_backSpace.png">
         </button>
         ${specialKey("호")}
     </div>
@@ -106,7 +106,7 @@ function renderNumberPad() {
         <button class="key key-func zeros" onclick="pressNumber('010')">010</button>
         ${numberBtn(0)}
         <button class="key key-func backback" onclick="backspace()">
-            <img class="back-icon" src="/assets/images/button_backSpace.png">
+            <img class="back-icon" src="/hci-gs25-delivery-kiosk/assets/images/button_backSpace.png">
         </button>
     </div>
     `;
@@ -138,12 +138,12 @@ function renderEnglishKeyboard() {
     <div class="keyboard-row">${row2.map(k => keyBtn(k)).join("")}</div>
     <div class="keyboard-row">
       <button class="key key-func shift" onclick="toggleShift()">
-            <img class="shift-icon" src="/assets/images/buttons_shift.png">
+            <img class="shift-icon" src="/hci-gs25-delivery-kiosk/assets/images/buttons_shift.png">
             Shift
         </button>
       ${row3.map(k => keyBtn(k)).join("")}
       <button class="key key-func back" onclick="backspace()">
-            <img class="back-icon" src="/assets/images/button_backSpace.png">
+            <img class="back-icon" src="/hci-gs25-delivery-kiosk/assets/images/button_backSpace.png">
         </button>
     </div>
     <div class="keyboard-row bottom-row">
@@ -227,7 +227,7 @@ function specialKey(originalLabel) {
     let inputValue = originalLabel;
     let extraClass = "";
 
-    const isSearchPage = window.location.pathname.includes("search.html");
+    const isSearchPage = window.location.pathname.includes("/hci-gs25-delivery-kiosk/search.html");
 
     if (originalLabel === "동") {
         if (isSearchPage) {

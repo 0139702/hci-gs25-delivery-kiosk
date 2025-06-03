@@ -30,7 +30,7 @@ function updateActionButtonForIndex() {
 
 window.addEventListener('DOMContentLoaded', () => {
     const confirmBtn = document.querySelector('.next-btn span');
-    if (window.location.pathname.includes('search.html')) {
+    if (window.location.pathname.includes('/hci-gs25-delivery-kiosk/search.html')) {
         confirmBtn.textContent = '선택 완료';
     } else {
         confirmBtn.textContent = '입력 완료';
@@ -41,7 +41,7 @@ function updateConfirmButtonState() {
     const btn = document.querySelector("#actionButton");
     const span = document.querySelector("#actionLabel");
   
-    const isSearchPage = window.location.pathname.includes("search.html");
+    const isSearchPage = window.location.pathname.includes("/hci-gs25-delivery-kiosk/search.html");
   
     if (isSearchPage) {
       const selectedAddress = document.querySelector('#selectedAddress');
@@ -69,7 +69,7 @@ function onAddressSelected(address) {
 }
 
 function handleActionButtonClick() {
-    const isSearchPage = window.location.pathname.includes("search.html");
+    const isSearchPage = window.location.pathname.includes("/hci-gs25-delivery-kiosk/search.html");
   
     if (isSearchPage) {
       confirmSelection();
@@ -87,6 +87,6 @@ function goToCompletePageIfValid() {
       return;
     }
 
-    window.location.href = "complete.html";
+    window.location.href = "/hci-gs25-delivery-kiosk/complete.html";
 }
   
