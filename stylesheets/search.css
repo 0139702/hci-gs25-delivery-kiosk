@@ -1,0 +1,227 @@
+.search-container {
+    width: 1000px;
+    height: 1300px;
+    margin-left: 40px;
+    padding: 26.75px -51.13px -55.46px 42.86px;
+    box-shadow: 0 0 9.74px rgba(121, 121, 121, 0.25);
+    border-radius: 9.74px;
+}
+
+.search-field {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 905.32px;
+    margin: 26.75px 51.13px 0 42.86px;
+    padding-top: 25px;
+}
+
+.search-field input {
+    width: 100%;
+    padding-right: 50px;
+    height: 50px;
+    font-size: 18px;
+    padding-left: 15px;
+    box-sizing: border-box;
+}
+
+.all-search {
+    font-size: 32.47px;
+    color: #3778BF;
+    margin-right: 26px;
+}
+
+#keyword {
+    width: 756.12px;
+    height: 62.34px;
+    padding: 19.91px 0 19.91px 17.5px;
+    font-family: 'NanumGothic';
+    font-size: 25.97px;
+    color: #b6b6b6;
+    background-color: #F7F7F7;
+    border: solid #2CABFF 0.65px;
+}
+
+p {
+    font-size: 19.48px;
+    color: #b5b5b5;
+    margin-top: 0;
+    margin-bottom: 14px;
+    margin-left: 192.06px;
+}
+
+.glass-btn {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    width: 26.72px;
+    height: 26.72px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.glass-btn img {
+    width: 26.72px;
+    height: 26.72px;   
+}
+
+.glass-icon {
+    margin-left: -30px;
+    padding: 11px;
+}
+
+.show-result {
+    margin-top: 28.16px;
+    margin-bottom: 35.66px;
+    display: flex;
+    align-items: center;
+}
+
+.result-not, .result-show {
+    width: 18.51px;
+    height: 20.06px;
+    margin-left: 54.47px;
+    margin-right: 13px;
+}
+
+.result-text {
+    font-family: 'NanumGothic';
+    font-size: 27.33px;
+    color: #c6c6c6;
+}
+
+#pagination {
+    position: fixed;
+    top: 1600px; /* 키보드 위로 살짝 띄워줌 */
+    width: 1000px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    z-index: 10;
+    font-size: 24px;
+}
+  
+#pagination .btn {
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    padding: 16px 36px;
+    font-size: 36.22px;
+    border-radius: 12px;
+    cursor: pointer;
+}
+  
+#pagination .btn img {
+    height: 28px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+#pagination .page-number, #pagination .page-total, #pagination .spliter {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+}
+
+#page-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.address-item {
+    border: 1.88px solid #3778BF;
+    border-radius: 12px;
+    padding: 20px 0;
+    margin-right: 51.13px;
+    font-size: 20px;
+    background-color: #fff;
+    margin-left: 51.13px;
+    width: 897.74px;
+}
+
+.address-item.selected {
+    border: 5px solid #0099FF;
+    background-color: #C9EAFF;
+}
+
+.address-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* flex-wrap: wrap; */
+}
+
+.label {
+    color: #828282;
+    font-family: 'NanumGothic';
+    font-size: 20.64px;
+    font-weight: 600;
+    margin-left: 12px;
+    margin-right: 56.38px;
+}
+
+.road-label {
+    color: #2CABFF;
+    font-family: 'Inter';
+    font-size: 23.77px;
+    font-weight: bold;
+    margin-left: 65.07px;
+    margin-right: 40px;
+}
+
+.value {
+    color: #000;
+    font-weight: 500;
+}
+
+.road-value {
+    font-family: 'NanumGothic';
+    font-size: 23.77px;
+    font-weight: bold;
+    color: #000;
+    margin-right: 40px;
+}
+
+.zip-label {
+    color: #929292;
+    font-size: 20.64px;
+    font-weight: 100;
+    margin-left: 0;
+    /* margin-right: 69.34px; */
+}
+
+.zip-value {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.address-sub {
+    margin-top: 10px;
+    color: #888;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.btn {
+    width: 280px;
+    height: 102px;
+    border-radius: 13.17px;
+    border: none;
+}
+
+.select-btn {
+    margin-top: 15px;
+    padding: 10px 25px;
+    font-size: 36.22px;
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}

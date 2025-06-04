@@ -1,0 +1,135 @@
+<!-- index.html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GS25 Prototype</title>
+<script src="apiKey.js"></script>
+<script src="addressSearch.js"></script>
+</head>
+<body>
+    <div>
+        <input type="text" id="keyword" placeholder="도로명 주소를 입력하세요" />
+        <button onclick="searchAddress()">주소 검색</button>
+    </div>
+    <div id="result"></div>
+<script src="apiKey.js"></script>
+<script src="addressSearch.js"></script
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>도로명주소 검색</title>
+  <script src="https://code.jquery.com/jquery-1.8.3.min.js"></script>
+  <style>
+    table {
+      border-collapse: collapse;
+      margin-top: 16px;
+      width: 100%;
+    }
+    td, th {
+      border: 1px solid #ccc;
+      padding: 8px;
+    }
+    input[type="text"] {
+      padding: 8px;
+      margin-right: 10px;
+      width: 300px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>도로명주소 검색</h2>
+  <input type="text" id="keyword" placeholder="도로명 주소 입력" onkeydown="enterSearch(event)">
+  <button onclick="getAddr()">주소 검색하기</button>
+
+  <div id="list"></div>
+
+  <script>
+    function getAddr() {
+      const keyword = $("#keyword").val().trim();
+      const confmKey = "devU01TX0FVVEgyMDI1MDUyNzE2NTkwMjExNTc5MDQ=";
+
+      if (!checkSearchedWord(keyword)) return;
+
+      $.ajax({
+        url: "https://business.juso.go.kr/addrlink/addrLinkApiJsonp.do",
+        type: "post",
+        data: {
+          currentPage: 1,
+          countPerPage: 7,
+          resultType: "json",
+          confmKey: confmKey,
+          keyword: keyword
+        },
+        dataType: "jsonp",
+        crossDomain: true,
+        success: function (jsonStr) {
+          if (jsonStr.results.common.errorCode !== "0") {
+            alert(jsonStr.results.common.errorMessage);
+            return;
+          }
+          makeListJson(jsonStr);
+        },
+        error: function () {
+          alert("주소 검색 중 오류 발생");
+        }
+      });
+    }
+
+    function makeListJson(jsonStr) {
+      const jusoList = jsonStr.results.juso;
+      if (!jusoList || jusoList.length === 0) {
+        $("#list").html("<p>검색 결과가 없습니다.</p>");
+        return;
+      }
+
+      let htmlStr = "<table><thead><tr><th>도로명주소</th><th>지번주소</th><th>우편번호</th></tr></thead><tbody>";
+
+      $(jusoList).each(function () {
+        htmlStr += `<tr>
+          <td>${this.roadAddr}</td>
+          <td>${this.jibunAddr}</td>
+          <td>${this.zipNo}</td>
+        </tr>`;
+      });
+
+      htmlStr += "</tbody></table>";
+      $("#list").html(htmlStr);
+    }
+
+    function enterSearch(event) {
+      if (event.key === "Enter") {
+        getAddr();
+      }
+    }
+
+    function checkSearchedWord(value) {
+      if (!value) return false;
+
+      const expText = /[%=><]/;
+      if (expText.test(value)) {
+        alert("특수문자는 입력할 수 없습니다.");
+        return false;
+      }
+
+      const sqlArray = ["OR", "SELECT", "INSERT", "DELETE", "UPDATE", "CREATE", "DROP", "EXEC", "UNION", "FETCH", "DECLARE", "TRUNCATE"];
+      for (let word of sqlArray) {
+        const regex = new RegExp(word, "gi");
+        if (regex.test(value)) {
+          alert(`"${word}"는 검색할 수 없습니다.`);
+          return false;
+        }
+      }
+
+      return true;
+    }
+  </script>
+
+</body>
+</html>

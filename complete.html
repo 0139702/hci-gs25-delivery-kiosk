@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GS25 편의점 택배 키오스크</title>
+    <link rel="stylesheet" href="/hci-gs25-delivery-kiosk/stylesheets/style.css">
+</head>
+<body>
+    <div class="viewport">
+        <h1>감사합니다</h1>
+
+        <div class="bottom-bar">
+            <button class="prev-btn btn common-prev" onclick="location.href='/hci-gs25-delivery-kiosk/index.html'">
+            <img class="prev-icon" src="/hci-gs25-delivery-kiosk/assets/images/button_previous.png" alt="">
+            <span>이전으로</span>
+        </button>
+      
+        <img class="logo" src="/hci-gs25-delivery-kiosk/assets/images/logo_GS25.png" alt="">
+      
+        <button class="next-btn btn disabled" onclick="goToCompletePageIfValid()">
+          <span>입력 완료</span>
+        </button>
+      </div>
+    </div>
+    <script src="/hci-gs25-delivery-kiosk/scripts/keyboard.js"></script>
+    <script src="/hci-gs25-delivery-kiosk/scripts/searchAddress.js"></script>
+    <script src="/hci-gs25-delivery-kiosk/scripts/etcFtn.js"></script>
+    <script>
+        window.onload = function () {
+        const data = JSON.parse(sessionStorage.getItem("deliveryForm") || "{}");
+        if (!data.senderName) return; // 아무 값 없으면 무시
+    
+        const content = `
+            📦 GS25 편의점 택배 접수 정보
+            
+            [보내는 사람]
+            이름: ${data.senderName}
+            전화번호: ${data.senderPhone}
+            주소: ${data.senderAddress}
+            상세주소: ${data.senderDetail}
+            
+            [받는 사람]
+            이름: ${data.receiverName}
+            전화번호: ${data.receiverPhone}
+            주소: ${data.receiverAddress}
+            상세주소: ${data.receiverDetail}
+            
+            [접수 시간]
+            ${data.selectedTime}
+                `;
+            
+                const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+                const link = document.createElement("a");
+                link.href = URL.createObjectURL(blob);
+                link.download = `택배접수정보_${Date.now()}.txt`;
+                link.click();
+        };
+    </script>
+</body>
+</html>
