@@ -41,7 +41,7 @@
             </div>
           
             <div class="address-field">
-              <button type="text" id="senderMainAddress" placeholder="주소 입력" required readonly onclick="goToSearchPage('senderMainAddress')"></button>
+              <input type="text" id="senderMainAddress" placeholder="주소 입력" required readonly onclick="setActiveInput(this)">
               <button class="search-btn" onclick="goToSearchPage('senderMainAddress')">주소 검색</button>
             </div>
           
@@ -60,7 +60,14 @@
             </div>
           
             <div class="address-field">
-              <button type="text" id="receiverMainAddress" placeholder="주소 입력" required readonly onclick="goToSearchPage('receiverMainAddress')"></button>
+              <input
+                  type="text"
+                  id="receiverMainAddress"
+                  placeholder="주소 입력"
+                  required
+                  readonly
+                  onclick="goToSearchPage('receiverMainAddress')"
+              />
               <button class="search-btn" onclick="goToSearchPage('receiverMainAddress')">주소 검색</button>
             </div>
           
