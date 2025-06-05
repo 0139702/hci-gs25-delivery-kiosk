@@ -101,5 +101,13 @@
     <script src="/hci-gs25-delivery-kiosk/scripts/keyboard.js"></script>
     <script src="/hci-gs25-delivery-kiosk/scripts/searchAddress.js"></script>
     <script src="/hci-gs25-delivery-kiosk/scripts/etcFtn.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+          const keywordInput = document.getElementById('keyword');
+          if (keywordInput) {
+            setActiveInput(keywordInput);
+          }
+        });
+    </script>
 </body>
 </html>
