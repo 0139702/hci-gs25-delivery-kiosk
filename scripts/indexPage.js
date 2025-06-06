@@ -1,6 +1,20 @@
 window.addEventListener("DOMContentLoaded", () => {
     restoreAddressFields();
     showKeyboard();
+
+    const selectedAddress = localStorage.getItem("selectedAddress");
+    const targetInputId = localStorage.getItem("targetInputId");
+  
+    if (selectedAddress && targetInputId) {
+      const targetInput = document.getElementById(targetInputId);
+      if (targetInput) {
+        targetInput.value = selectedAddress;
+        targetInput.classList.add("input-filled");
+      }
+      // 사용 후 제거 (중복 방지)
+      localStorage.removeItem("selectedAddress");
+      localStorage.removeItem("targetInputId");
+    }
 });
   
 function restoreAddressFields() {
@@ -48,12 +62,15 @@ function restoreAddressFields() {
   
 function showKeyboard() {
     document.getElementById("keyboardContainer").style.display = "block";
-    renderKeyboard();
+    if (keyboard) {
+        keyboard.style.display = "block";
+        renderKeyboard();
+    }
 }
 
 // 주소 검색 페이지로 이동할 때 현재 필드 저장
-function goToSearchPage(targetFieldId) {
-    sessionStorage.setItem("addressTarget", targetFieldId);
+function goToSearchPage(inputId) {
+    sessionStorage.setItem("addressTarget", inputId);
 
     const fieldsToSave = [
       "senderName", "senderPhone", "receiverName", "receiverPhone",
@@ -67,7 +84,20 @@ function goToSearchPage(targetFieldId) {
       }
     });
 
-    window.location.href = "/hci-gs25-delivery-kiosk/search.html";
+    window.location.href = `/hci-gs25-delivery-kiosk/search.html?target=${inputId}`;
+    // window.location.href = "/hci-gs25-delivery-kiosk/search.html";
 }
+
+// function confirmSelection() {
+//     const selectedAddress = document.getElementById("selectedAddress").textContent;
+//     const urlParams = new URLSearchParams(window.location.search);
+//     const targetInputId = urlParams.get("target");
+  
+//     if (selectedAddress && targetInputId) {
+//       localStorage.setItem("selectedAddress", selectedAddress);
+//       localStorage.setItem("targetInputId", targetInputId);
+//       window.location.href = "/hci-gs25-delivery-kiosk/index.html"; // 또는 sender.html 등 원래 페이지
+//     }
+// }
 
 window.goToSearchPage = goToSearchPage;
