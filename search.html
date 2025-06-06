@@ -102,12 +102,15 @@
     <script src="/hci-gs25-delivery-kiosk/scripts/searchAddress.js"></script>
     <script src="/hci-gs25-delivery-kiosk/scripts/etcFtn.js"></script>
     <script>
-        window.addEventListener('DOMContentLoaded', () => {
-          const keywordInput = document.getElementById('keyword');
-          if (keywordInput) {
+    window.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => {
+            const keywordInput = document.getElementById('keyword');
+            if (keywordInput) {
             setActiveInput(keywordInput);
-          }
-        });
+            // keywordInput.click();
+            }
+        }, 100); // 100ms 뒤에 실행
+    });
     </script>
 </body>
 </html>
