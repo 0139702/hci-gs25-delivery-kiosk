@@ -265,11 +265,16 @@ function pressKey(char) {
     activeInput.dispatchEvent(new Event("input"));
     updateActionButtonForIndex();
 
-    const isDoubleConsonant = Object.values(keyMap).some(obj => obj.shift === char);
-    if (isShift && isDoubleConsonant) {
-        isShift = false;
-        renderKeyboard();
+    if (isShift) {
+      const isDoubleConsonant = Object.entries(keyMap).some(
+          ([base, { shift }]) => shift === char
+      );
+      if (isDoubleConsonant) {
+          isShift = false;
+          renderKeyboard();
+      }
     }
+    console.log("입력된 문자:", char);
 }
 
 function insertSpecial(word) {
