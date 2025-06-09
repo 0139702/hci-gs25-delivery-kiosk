@@ -264,6 +264,12 @@ function pressKey(char) {
     
     activeInput.dispatchEvent(new Event("input"));
     updateActionButtonForIndex();
+
+    const isDoubleConsonant = Object.values(keyMap).some(obj => obj.shift === char);
+    if (isShift && isDoubleConsonant) {
+        isShift = false;
+        renderKeyboard();
+    }
 }
 
 function insertSpecial(word) {
