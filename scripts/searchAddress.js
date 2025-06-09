@@ -192,7 +192,15 @@ function confirmSelection() {
     return;
   }
 
+  const urlParams = new URLSearchParams(window.location.search);
+  const targetInputId = urlParams.get("target");
+
+  if (targetInputId) {
+    sessionStorage.setItem("addressTarget", targetInputId);
+  }
+
   sessionStorage.setItem("selectedAddress", chosenAddress);
+
   window.location.href = "/hci-gs25-delivery-kiosk/index.html";
 }
 
